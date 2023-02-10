@@ -12,10 +12,10 @@ export class ProductService {
   getProducts() {
     return this.http
       .get(`https://dummyjson.com/products?limit=10`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //   'Content-Type': 'application/json',
+        // },
       })
       .pipe(map((data: any) => data?.products as IProduct[]));
   }
@@ -24,10 +24,10 @@ export class ProductService {
     return this.http.get<IProduct>(
       `https://dummyjson.com/products/${productId}`,
       {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //   'Content-Type': 'application/json',
+        // },
       }
     );
   }
