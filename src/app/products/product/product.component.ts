@@ -22,6 +22,7 @@ export class ProductComponent implements AfterContentInit, AfterContentChecked {
   ngAfterContentInit(): void {
     console.log('[ngAfterContentInit] productHeading', this.productHeading);
   }
+
   ngAfterContentChecked(): void {
     console.log('[AfterContentChecked] productHeading', this.productHeading);
   }

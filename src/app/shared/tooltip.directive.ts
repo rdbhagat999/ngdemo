@@ -1,33 +1,31 @@
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  NgZone,
-} from '@angular/core';
-import { IProduct } from './product';
+import { Directive, ElementRef, HostListener, Input, NgZone, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appFetchProduct]',
+  selector: '[appTooltip]'
 })
-export class FetchProductDirective implements OnDestroy {
-  @Input() appFetchProduct!: IProduct;
+export class TooltipDirective {
+
+  @Input() tooltip!: string;
   private delay = 100;
   private myPopup!: HTMLDivElement;
   private timer!: ReturnType<typeof setTimeout>;
 
-  constructor(private el: ElementRef, private zone: NgZone) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private zone: NgZone
+  ) {}
 
   private createTooltipPopup(x: number, y: number) {
-    let popup = document.createElement('div');
-    popup.innerHTML = `${this.appFetchProduct.description.toString()}`;
+    let popup: HTMLDivElement = this.renderer.createElement('div');
+    popup.innerHTML = this.tooltip;
     popup.setAttribute('class', 'tooltip-container');
     popup.style.top = y.toString() + 'px';
     popup.style.left = x.toString() + 'px';
     popup.style.fontSize = '1rem';
     popup.style.maxWidth = '300px';
-    document.body.appendChild(popup);
+    this.renderer.appendChild(this.el.nativeElement, popup);
+
     this.myPopup = popup;
     // setTimeout(() => {
     //   if (this.myPopup) {
@@ -72,4 +70,5 @@ export class FetchProductDirective implements OnDestroy {
       this.myPopup?.remove();
     }
   }
+
 }

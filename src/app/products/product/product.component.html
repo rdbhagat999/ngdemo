@@ -7,7 +7,7 @@
   </div>
   <div class="flex flex-col justify-between items-start p-5">
     <a class="cursor-pointer">
-      <ng-content select="h5"></ng-content>
+      <ng-content select="app-product-title"></ng-content>
     </a>
     <h6
       class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white"
@@ -15,7 +15,8 @@
       {{ product.price | currency }}
     </h6>
     <p
-      [appFetchProduct]="product"
+      appTooltip
+      [tooltip]="product.description"
       class="mb-3 font-normal line-clamp-2 text-gray-700 dark:text-gray-400"
     >
       {{ product.description }}
