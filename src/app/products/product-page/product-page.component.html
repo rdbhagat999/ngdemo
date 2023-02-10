@@ -1,0 +1,9 @@
+<h1 #heading class="text-4xl font-bold">Product List</h1>
+
+<div class="my-4 py-4">
+  <ng-container *ngIf="products$ | async as products">
+    <ng-container *ngIf="products.length">
+      <app-product-list class="h-full" [products]="products"></app-product-list>
+    </ng-container>
+  </ng-container>
+</div>

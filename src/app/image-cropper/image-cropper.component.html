@@ -1,0 +1,32 @@
+<label
+  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+  for="file_input"
+  >Upload file</label
+>
+<input
+  (change)="fileChangeEvent($event)"
+  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+  id="file_input"
+  type="file"
+/>
+
+<div class="flex justify-between items-center mt-4">
+  <div class="w-1/2 p-4 border">
+    <h3 class="text-3xl font-bold dark:text-white py-1">Original Image</h3>
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded($event)"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+  </div>
+
+  <div class="w-1/3 p-4 border">
+    <h3 class="text-3xl font-bold dark:text-white py-1">Cropped Image</h3>
+    <img [src]="croppedImage" class="h-auto max-w-full" />
+  </div>
+</div>

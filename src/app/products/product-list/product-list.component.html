@@ -1,0 +1,9 @@
+<ul class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+  <li *ngFor="let product of products; index as i; trackBy: trackById">
+    <app-product class="h-full" [product]="product">
+      <app-product-title>
+        {{ product.title }}
+      </app-product-title>
+    </app-product>
+  </li>
+</ul>
