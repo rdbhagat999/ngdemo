@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { IProduct } from './products/product';
 
@@ -7,7 +7,7 @@ import { IProduct } from './products/product';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getProducts() {
     return this.http

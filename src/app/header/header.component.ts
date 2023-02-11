@@ -9,9 +9,9 @@ import { IDummyJsonUser } from '../dummy-json-user.interface';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user$: Observable<IDummyJsonUser | null>;
-
   authService = inject(AuthService);
+
+  user$: Observable<IDummyJsonUser | null>;
 
   constructor() {
     this.user$ = this.authService.user$;

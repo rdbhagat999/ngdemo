@@ -1,20 +1,25 @@
-import { Directive, ElementRef, HostListener, Input, NgZone, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  NgZone,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appTooltip]'
+  selector: '[appTooltip]',
 })
 export class TooltipDirective {
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  private zone = inject(NgZone);
 
   @Input() tooltip!: string;
   private delay = 100;
   private myPopup!: HTMLDivElement;
   private timer!: ReturnType<typeof setTimeout>;
-
-  constructor(
-    private el: ElementRef,
-    private renderer: Renderer2,
-    private zone: NgZone
-  ) {}
 
   private createTooltipPopup(x: number, y: number) {
     let popup: HTMLDivElement = this.renderer.createElement('div');
@@ -70,5 +75,4 @@ export class TooltipDirective {
       this.myPopup?.remove();
     }
   }
-
 }

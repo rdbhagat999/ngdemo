@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
+  inject,
   Input,
   Renderer2,
 } from '@angular/core';
@@ -11,13 +12,11 @@ import {
   selector: '[appHighlight]',
 })
 export class HighlightDirective {
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  
   @Input() appHighlight = '';
   @Input() defaultColor = '';
-
-  constructor(
-    private el: ElementRef<HTMLElement>,
-    private renderer: Renderer2
-  ) {}
 
   ngOnInit(): void {}
 

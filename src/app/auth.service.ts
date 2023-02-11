@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, defer, map, Subscription } from 'rxjs';
 import { IDummyJsonUser } from './dummy-json-user.interface';
@@ -9,6 +9,9 @@ import { IDummyJsonUser } from './dummy-json-user.interface';
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
   private BASE_URL = 'https://dummyjson.com';
   private accessToken = new BehaviorSubject<string>('');
   private user = new BehaviorSubject<IDummyJsonUser | null>(null);
@@ -20,7 +23,7 @@ export class AuthService {
 
   sub$!: Subscription;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor() {
     this.updateDummyJsonAuthStateFromLocalStorage();
   }
 
