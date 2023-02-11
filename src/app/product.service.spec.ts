@@ -70,7 +70,11 @@ fdescribe('ProductService', () => {
   });
 
   it(`should return products observable with IDs [${mockProduct_1.id}, ${mockProduct_2.id}]`, (done) => {
+    spyOn(service, 'getProducts').and.returnValue(mockProducts$);
+
     const products$ = service.getProducts();
+
+    expect(service.getProducts).toHaveBeenCalled();
 
     products$.subscribe((products: IProduct[]) => {
       expect(products[0].title).toBe(mockProduct_1.title);
@@ -81,7 +85,11 @@ fdescribe('ProductService', () => {
   });
 
   it(`should return product observable with ID [${mockProduct_2.id}]`, (done) => {
+    spyOn(service, 'getProduct').and.returnValue(of(mockProduct_2));
+
     const product$ = service.getProduct(mockProduct_2.id);
+
+    expect(service.getProduct).toHaveBeenCalledWith(mockProduct_2.id);
 
     product$.subscribe((product: IProduct) => {
       expect(product.id).toBe(mockProduct_2.id);
@@ -91,7 +99,11 @@ fdescribe('ProductService', () => {
   });
 
   it(`should not return product observable with ID [9]`, (done) => {
+    spyOn(service, 'getProduct').and.returnValue(of({} as IProduct));
+
     const product$ = service.getProduct(9);
+
+    expect(service.getProduct).toHaveBeenCalledWith(9);
 
     product$.subscribe((product: IProduct) => {
       expect(product?.id).not.toBe(9);
