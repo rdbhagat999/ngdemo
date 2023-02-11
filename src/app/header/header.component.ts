@@ -18,6 +18,6 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut(): void {
-    this.authService.logoutToDummyJson();
+    this.authService.logoutFromDummyJson();
   }
 }

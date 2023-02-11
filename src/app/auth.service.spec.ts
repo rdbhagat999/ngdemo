@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 import { IDummyJsonUser } from './dummy-json-user.interface';
 
@@ -14,35 +14,21 @@ const mockUser = {
   username: 'mockuser_username',
 };
 
-class MockAuthService {
-  private accessToken = new BehaviorSubject<string>('');
-  private user = new BehaviorSubject<IDummyJsonUser | null>(null);
-  private loggedIn = new BehaviorSubject<boolean>(false);
-
-  accessToken$ = this.accessToken.asObservable();
-  user$ = this.user.asObservable();
-  loggedIn$ = this.loggedIn.asObservable();
-
-  updateAuthUser(user: IDummyJsonUser | null): void {
-    this.user.next(user);
-  }
-
-  updateAuthStatus(user: IDummyJsonUser | null): void {
-    this.loggedIn.next(!!user);
-  }
-
-  updateAccessToken(token: string): void {
-    this.accessToken.next(token);
-  }
-
-  updateDummyJsonAuthState(user: IDummyJsonUser | null) {
+class MockAuthService extends AuthService {
+  override updateDummyJsonAuthState(user: IDummyJsonUser | null) {
     this.updateAccessToken(user?.token || '');
     this.updateAuthUser(user);
     this.updateAuthStatus(user);
   }
 
-  loginToDummyJson(username: string, password: string) {
+  override loginToDummyJson(username: string, password: string) {
     this.updateDummyJsonAuthState(mockUser as IDummyJsonUser);
+  }
+
+  override logoutFromDummyJson() {
+    this.updateAccessToken('');
+    this.updateAuthUser(null);
+    this.updateAuthStatus(null);
   }
 }
 
@@ -59,6 +45,16 @@ fdescribe('AuthService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it(`[loginToDummyJson] should set user`, (done) => {
+    service.loginToDummyJson(mockUser?.username, '123');
+
+    service.user$.subscribe((user) => {
+      expect(user?.username).toBe(mockUser?.username);
+
+      done();
+    });
   });
 
   it(`[userId] should be [${mockUser?.id}]`, (done) => {
@@ -110,6 +106,16 @@ fdescribe('AuthService', () => {
   it(`[authToken] should be ['']`, (done) => {
     service.accessToken$.subscribe((token) => {
       expect(token).toBe('');
+
+      done();
+    });
+  });
+
+  it(`[logoutToDummyJson] should set user=null`, (done) => {
+    service.logoutFromDummyJson();
+
+    service.user$.subscribe((user) => {
+      expect(user).toBe(null);
 
       done();
     });

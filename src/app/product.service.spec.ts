@@ -1,29 +1,42 @@
 import { Observable, of } from 'rxjs';
+import { ProductService } from './product.service';
+import { IProduct } from './products/product';
 
-interface IProduct {
-  id: number;
-  name: string;
-  brand: string;
-}
 const mockProduct_1 = {
   id: 1,
-  name: 'mock_product_name',
-  brand: 'mock_product_brand',
+  title: 'product_name_1',
+  description: 'product_description_1',
+  price: 300,
+  discountPercentage: 10,
+  rating: 4,
+  stock: 30,
+  brand: 'product_brand_1',
+  category: 'product_cat_1',
+  thumbnail: 'product_thumbnail_1',
+  images: ['product_image_1', 'product_image_2'],
 };
 const mockProduct_2 = {
   id: 2,
-  name: 'mock_product_name',
-  brand: 'mock_product_brand',
+  title: 'product_name_2',
+  description: 'product_description_2',
+  price: 300,
+  discountPercentage: 20,
+  rating: 4,
+  stock: 30,
+  brand: 'product_brand_2',
+  category: 'product_cat_2',
+  thumbnail: 'product_thumbnail_2',
+  images: ['product_image_2', 'product_image_2'],
 };
 const mockProducts = [{ ...mockProduct_1 }, { ...mockProduct_2 }];
 const mockProducts$ = of([...mockProducts]);
 
-class MockProductService {
-  getProducts(): Observable<IProduct[]> {
+class MockProductService extends ProductService {
+  override getProducts(): Observable<IProduct[]> {
     return mockProducts$;
   }
 
-  getProduct(productId: number): Observable<IProduct> {
+  override getProduct(productId: number): Observable<IProduct> {
     const found = [mockProduct_1, mockProduct_2].filter(
       (p) => p.id === productId
     )[0];
@@ -46,8 +59,8 @@ fdescribe('ProductService', () => {
     const products$ = service.getProducts();
 
     products$.subscribe((products: IProduct[]) => {
-      expect(products[0].name).toBe(mockProduct_1.name);
-      expect(products[1].name).toBe(mockProduct_2.name);
+      expect(products[0].title).toBe(mockProduct_1.title);
+      expect(products[1].title).toBe(mockProduct_2.title);
 
       done();
     });

@@ -60,7 +60,7 @@ export class AuthService implements OnInit {
       });
   }
 
-  logoutToDummyJson() {
+  logoutFromDummyJson() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.updateAccessToken('');
