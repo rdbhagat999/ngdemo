@@ -40,6 +40,7 @@ export class AuthComponent {
 
     // Return if form is invalid
     if (this.form?.invalid) {
+      this.isFormSubmitted = false;
       return;
     }
 

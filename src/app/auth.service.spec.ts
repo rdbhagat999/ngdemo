@@ -1,43 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 
-import { IDummyJsonUser } from './dummy-json-user.interface';
+import { MockAuthService, MockHttpClient, mockUser } from './test_utils';
 
-const mockUser = {
-  email: 'mockuser@email',
-  firstName: 'mockuser_firstname',
-  gender: 'mockuser_gender',
-  id: 6,
-  image: 'mockuser_image',
-  lastName: 'mockuser_lastname',
-  token: 'mockuser_token',
-  username: 'mockuser_username',
-};
-
-class MockHttpClient {}
-
-@Injectable()
-class MockAuthService extends AuthService {
-  override updateDummyJsonAuthState(user: IDummyJsonUser | null) {
-    this.updateAccessToken(user?.token || '');
-    this.updateAuthUser(user);
-    this.updateAuthStatus(user);
-  }
-
-  override loginToDummyJson(username: string, password: string) {
-    this.updateDummyJsonAuthState(mockUser as IDummyJsonUser);
-  }
-
-  override logoutFromDummyJson() {
-    this.updateAccessToken('');
-    this.updateAuthUser(null);
-    this.updateAuthStatus(null);
-  }
-}
-
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let service: MockAuthService;
   let http: HttpClient;
 

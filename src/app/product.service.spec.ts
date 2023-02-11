@@ -1,56 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { ProductService } from './product.service';
 import { IProduct } from './products/product';
+import {
+  MockHttpClient,
+  mockProducts$,
+  MockProductService,
+  mockProduct_1,
+  mockProduct_2,
+} from './test_utils';
 
-const mockProduct_1 = {
-  id: 1,
-  title: 'product_name_1',
-  description: 'product_description_1',
-  price: 300,
-  discountPercentage: 10,
-  rating: 4,
-  stock: 30,
-  brand: 'product_brand_1',
-  category: 'product_cat_1',
-  thumbnail: 'product_thumbnail_1',
-  images: ['product_image_1', 'product_image_2'],
-};
-const mockProduct_2 = {
-  id: 2,
-  title: 'product_name_2',
-  description: 'product_description_2',
-  price: 300,
-  discountPercentage: 20,
-  rating: 4,
-  stock: 30,
-  brand: 'product_brand_2',
-  category: 'product_cat_2',
-  thumbnail: 'product_thumbnail_2',
-  images: ['product_image_2', 'product_image_2'],
-};
-const mockProducts = [{ ...mockProduct_1 }, { ...mockProduct_2 }];
-const mockProducts$ = of([...mockProducts]);
-
-class MockHttpClient {}
-
-@Injectable()
-class MockProductService extends ProductService {
-  override getProducts(): Observable<IProduct[]> {
-    return mockProducts$;
-  }
-
-  override getProduct(productId: number): Observable<IProduct> {
-    const found = [mockProduct_1, mockProduct_2].filter(
-      (p) => p.id === productId
-    )[0];
-    return of(found);
-  }
-}
-
-fdescribe('ProductService', () => {
+describe('ProductService', () => {
   let service: MockProductService;
   let http: HttpClient;
 
