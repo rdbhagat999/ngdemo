@@ -1,4 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TestBed, inject } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 
 import { IDummyJsonUser } from './dummy-json-user.interface';
@@ -14,6 +16,9 @@ const mockUser = {
   username: 'mockuser_username',
 };
 
+class MockHttpClient {}
+
+@Injectable()
 class MockAuthService extends AuthService {
   override updateDummyJsonAuthState(user: IDummyJsonUser | null) {
     this.updateAccessToken(user?.token || '');
@@ -34,13 +39,18 @@ class MockAuthService extends AuthService {
 
 fdescribe('AuthService', () => {
   let service: MockAuthService;
+  let http: HttpClient;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MockAuthService],
+      providers: [
+        { provide: AuthService, useClass: MockAuthService },
+        { provide: HttpClient, useClass: MockHttpClient },
+      ],
     });
 
-    service = TestBed.inject(MockAuthService);
+    service = TestBed.inject(AuthService);
+    http = TestBed.inject(HttpClient);
   });
 
   it('should be created', () => {

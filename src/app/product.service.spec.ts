@@ -1,3 +1,6 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { ProductService } from './product.service';
 import { IProduct } from './products/product';
@@ -31,6 +34,9 @@ const mockProduct_2 = {
 const mockProducts = [{ ...mockProduct_1 }, { ...mockProduct_2 }];
 const mockProducts$ = of([...mockProducts]);
 
+class MockHttpClient {}
+
+@Injectable()
 class MockProductService extends ProductService {
   override getProducts(): Observable<IProduct[]> {
     return mockProducts$;
@@ -46,9 +52,17 @@ class MockProductService extends ProductService {
 
 fdescribe('ProductService', () => {
   let service: MockProductService;
+  let http: HttpClient;
 
   beforeEach(() => {
-    service = new MockProductService();
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ProductService, useClass: MockProductService },
+        { provide: HttpClient, useClass: MockHttpClient },
+      ],
+    });
+    service = TestBed.inject(ProductService);
+    http = TestBed.inject(HttpClient);
   });
 
   it('should be created', () => {
