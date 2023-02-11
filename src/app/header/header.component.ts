@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { IDummyJsonUser } from '../dummy-json-user.interface';
@@ -8,12 +8,12 @@ import { IDummyJsonUser } from '../dummy-json-user.interface';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
 
-  user$: Observable<IDummyJsonUser | null>;
+  user$!: Observable<IDummyJsonUser | null>;
 
-  constructor() {
+  ngOnInit() {
     this.user$ = this.authService.user$;
   }
 

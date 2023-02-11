@@ -10,9 +10,10 @@ import { AuthService } from '../auth.service';
 export class AuthComponent {
   form!: FormGroup;
   isFormSubmitted = false;
+  private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
 
-  constructor(private fb: FormBuilder) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.initForm();

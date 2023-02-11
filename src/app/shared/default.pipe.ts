@@ -5,11 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DefaultPipe implements PipeTransform {
   transform(
-    value: string,
+    value: string = '',
     fallback: string = '/assets/dreamy_nights.jpg'
   ): string {
-    console.log(value);
-    console.log(fallback);
     if (!value) {
       return fallback;
     }

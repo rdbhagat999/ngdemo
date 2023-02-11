@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  private authService = inject(AuthService);
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -20,12 +22,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      alert('Not authorized, please login.');
-      return false;
-    }
-    return true;
+    return this.authService.loggedIn$.pipe(
+      tap((isLoggedIn: boolean) => {
+        if (!isLoggedIn) {
+          alert('Not authorized, please login.');
+        }
+        return isLoggedIn;
+      })
+    );
   }
 }

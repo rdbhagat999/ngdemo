@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   inject,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,14 +15,14 @@ import { ProductListComponent } from '../product-list/product-list.component';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.scss'],
 })
-export class ProductPageComponent {
+export class ProductPageComponent implements OnInit {
   @ViewChild('heading') headingRef!: ElementRef;
   @ViewChild(ProductListComponent) productList!: ProductListComponent;
 
   private productService: ProductService = inject(ProductService);
-  products$: Observable<IProduct[]>;
+  products$!: Observable<IProduct[]>;
 
-  constructor() {
+  ngOnInit() {
     this.products$ = this.productService.getProducts();
   }
 }

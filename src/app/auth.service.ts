@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, defer, map, Subscription } from 'rxjs';
 import { IDummyJsonUser } from './dummy-json-user.interface';
@@ -8,11 +8,12 @@ import { IDummyJsonUser } from './dummy-json-user.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
 
   private BASE_URL = 'https://dummyjson.com';
+
   private accessToken = new BehaviorSubject<string>('');
   private user = new BehaviorSubject<IDummyJsonUser | null>(null);
   private loggedIn = new BehaviorSubject<boolean>(false);
@@ -23,11 +24,11 @@ export class AuthService {
 
   sub$!: Subscription;
 
-  constructor() {
+  ngOnInit() {
     this.updateDummyJsonAuthStateFromLocalStorage();
   }
 
-  updateDummyJsonAuthStateFromLocalStorage() {
+  updateDummyJsonAuthStateFromLocalStorage(): void {
     const data = localStorage.getItem('user');
     if (data) {
       this.updateDummyJsonAuthState(JSON.parse(data));
@@ -36,7 +37,7 @@ export class AuthService {
     }
   }
 
-  updateDummyJsonAuthState(user: IDummyJsonUser | null) {
+  updateDummyJsonAuthState(user: IDummyJsonUser | null): void {
     localStorage.setItem('token', user?.token || '');
     localStorage.setItem('user', JSON.stringify(user));
     this.updateAccessToken(user?.token || '');
@@ -68,19 +69,19 @@ export class AuthService {
     this.router.navigateByUrl('/home');
   }
 
-  updateAuthUser(user: IDummyJsonUser | null) {
+  updateAuthUser(user: IDummyJsonUser | null): void {
     this.user.next(user);
   }
 
-  updateAuthStatus(user: IDummyJsonUser | null) {
+  updateAuthStatus(user: IDummyJsonUser | null): void {
     this.loggedIn.next(!!user);
   }
 
-  updateAccessToken(token: string) {
+  updateAccessToken(token: string): void {
     this.accessToken.next(token);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.sub$) {
       this.sub$.unsubscribe();
     }

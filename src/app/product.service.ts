@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IProduct } from './products/product';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { IProduct } from './products/product';
 export class ProductService {
   private http = inject(HttpClient);
 
-  getProducts() {
+  getProducts(): Observable<IProduct[]> {
     return this.http
       .get(`https://dummyjson.com/products?limit=10`, {
         // headers: {
@@ -20,7 +20,7 @@ export class ProductService {
       .pipe(map((data: any) => data?.products as IProduct[]));
   }
 
-  getProduct(productId: number) {
+  getProduct(productId: number): Observable<IProduct> {
     return this.http.get<IProduct>(
       `https://dummyjson.com/products/${productId}`,
       {
