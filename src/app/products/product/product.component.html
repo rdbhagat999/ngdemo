@@ -5,7 +5,7 @@
   <div class="cursor-pointer">
     <img
       class="rounded-t-lg"
-      [src]="product.thumbnail | default"
+      [src]="product.thumbnail | default : '/assets/dreamy_nights.jpg'"
       [alt]="product.title"
     />
   </div>

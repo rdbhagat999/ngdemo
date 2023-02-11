@@ -1,7 +1,7 @@
-import { SocialUser } from '@abacritt/angularx-social-login';
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { IDummyJsonUser } from '../dummy-json-user.interface';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user$: Observable<SocialUser | null>;
+  user$: Observable<IDummyJsonUser | null>;
 
   authService = inject(AuthService);
 
@@ -18,6 +18,6 @@ export class HeaderComponent {
   }
 
   signOut(): void {
-    this.authService.signOut();
+    this.authService.logoutToDummyJson();
   }
 }

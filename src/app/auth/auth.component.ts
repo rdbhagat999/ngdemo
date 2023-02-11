@@ -50,4 +50,10 @@ export class AuthComponent {
       this.form.value?.password
     );
   }
+
+  canDeactivate() {
+    const pristine = this.form.pristine;
+    console.log('pristine', pristine);
+    return pristine;
+  }
 }
