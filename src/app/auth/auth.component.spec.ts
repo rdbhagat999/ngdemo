@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 
@@ -17,25 +24,28 @@ describe('AuthComponent', () => {
       imports: [ReactiveFormsModule],
       declarations: [AuthComponent],
       providers: [
+        FormBuilder,
         { provide: AuthService, useClass: MockAuthService },
         { provide: HttpClient, useClass: MockHttpClient },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     http = TestBed.inject(HttpClient);
     service = TestBed.inject(AuthService);
-
-    component.ngOnInit();
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should render input elements', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     const usernameInput = compiled.querySelector('input[id="username"]');
     const passwordInput = compiled.querySelector('input[id="password"]');
@@ -45,6 +55,8 @@ describe('AuthComponent', () => {
   });
 
   it('should test input validity', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     const usernameInput = component.form.controls['username'];
     const passwordInput = component.form.controls['password'];
 
@@ -59,6 +71,9 @@ describe('AuthComponent', () => {
   });
 
   it('should test input errors', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+
     const usernameInput = component.form.controls['username'];
     expect(usernameInput.errors).withContext('first valid').toBeNull();
 
@@ -67,6 +82,9 @@ describe('AuthComponent', () => {
   });
 
   it('should test form validity', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+
     const form = component.form;
     expect(form.valid).withContext('first valid').toBeTruthy();
 
@@ -79,21 +97,22 @@ describe('AuthComponent', () => {
     expect(form.valid).withContext('later invalid').toBeFalsy();
   });
 
-  it('should submit form', () => {
-    spyOn(component, 'handleSubmit');
+  fit('should submit form', fakeAsync(() => {
+    component.ngOnInit();
+    fixture.detectChanges();
 
-    component.handleSubmit();
+    expect(component.form.valid).withContext('first valid').toBe(true);
 
-    expect(component.handleSubmit).toHaveBeenCalled();
+    fixture.nativeElement.querySelector('form button').click();
 
-    // service.loginToDummyJson(mockUser?.username, '123');
+    tick();
 
-    // service.user$.subscribe((user) => {
-    //   expect(user?.username).toBe(mockUser?.username);
-
-    //   done();
-    // });
-  });
+    service.user$.subscribe((user) => {
+      expect(user?.username)
+        .withContext('after form submit event')
+        .toBe(mockUser?.username);
+    });
+  }));
 
   it('should render title', () => {
     fixture.detectChanges();

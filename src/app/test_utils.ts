@@ -5,7 +5,7 @@ import { IDummyJsonUser } from './dummy-json-user.interface';
 import { ProductService } from './product.service';
 import { IProduct } from './products/product';
 
-export const mockUser = {
+export const mockUser: IDummyJsonUser = {
   email: 'mockuser@email',
   firstName: 'mockuser_firstname',
   gender: 'mockuser_gender',

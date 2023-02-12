@@ -26,7 +26,7 @@ describe('HomeComponent', () => {
   });
 
   it('should render title', fakeAsync(() => {
-    // fakeAsync + tick [don't handle http requests]
+    // fakeAsync + tick [don't handle or track  http requests]
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     tick();
