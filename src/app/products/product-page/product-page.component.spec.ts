@@ -1,5 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ProductService } from 'src/app/product.service';
 import { DefaultPipe } from 'src/app/shared/default.pipe';
 import { TooltipDirective } from 'src/app/shared/tooltip.directive';
@@ -58,11 +63,13 @@ describe('ProductPageComponent', () => {
     expect(component.ngOnInit).toHaveBeenCalled();
   });
 
-  it('should render title', () => {
+  it('should render title', fakeAsync(() => {
+    // fakeAsync + tick [don't handle http requests]
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
+    tick();
     expect(compiled.querySelector('h1')?.textContent).toContain('Product List');
-  });
+  }));
 
   it('should return observable of products', (done) => {
     spyOn(service, 'getProducts').and.returnValue(mockProducts$);
