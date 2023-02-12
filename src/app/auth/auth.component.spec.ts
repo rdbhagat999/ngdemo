@@ -7,7 +7,6 @@ import {
   tick,
 } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 

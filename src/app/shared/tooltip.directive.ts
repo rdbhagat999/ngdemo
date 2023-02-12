@@ -23,8 +23,8 @@ export class TooltipDirective {
 
   private createTooltipPopup(x: number, y: number) {
     let popup: HTMLDivElement = this.renderer.createElement('div');
-    popup.innerHTML = this.tooltip;
     popup.setAttribute('class', 'tooltip-container');
+    popup.innerHTML = this.tooltip;
     popup.style.top = y.toString() + 'px';
     popup.style.left = x.toString() + 'px';
     popup.style.fontSize = '1rem';

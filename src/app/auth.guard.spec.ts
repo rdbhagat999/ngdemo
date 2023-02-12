@@ -33,14 +33,14 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  fit('should return false', fakeAsync(() => {
+  it('should return false', fakeAsync(() => {
     service.updateDummyJsonAuthState(null);
     tick();
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(false);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/auth']);
   }));
 
-  fit('should return true', fakeAsync(() => {
+  it('should return true', fakeAsync(() => {
     service.updateDummyJsonAuthState(mockUser);
     tick();
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
