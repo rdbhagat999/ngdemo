@@ -11,7 +11,7 @@ import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 
 import { HeaderComponent } from './header.component';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let http: HttpClient;

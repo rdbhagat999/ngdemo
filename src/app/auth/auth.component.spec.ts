@@ -97,7 +97,7 @@ describe('AuthComponent', () => {
     expect(form.valid).withContext('later invalid').toBeFalsy();
   });
 
-  fit('should submit form', fakeAsync(() => {
+  it('should submit form', fakeAsync(() => {
     component.ngOnInit();
     fixture.detectChanges();
 

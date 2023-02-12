@@ -45,6 +45,10 @@ export class AuthService implements OnInit {
     this.updateAuthStatus(user);
   }
 
+  checkAuthStatusBoolean() {
+    return this.loggedIn.value;
+  }
+
   loginToDummyJson(username: string, password: string) {
     this.sub$ = this.http
       .post(

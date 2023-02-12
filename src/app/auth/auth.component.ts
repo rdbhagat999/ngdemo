@@ -45,7 +45,7 @@ export class AuthComponent {
     }
 
     // Form field values
-    console.log(this.form?.value);
+    // console.log(this.form?.value);
 
     this.authService.loginToDummyJson(
       this.form.value?.username,

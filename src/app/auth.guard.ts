@@ -2,10 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,22 +13,29 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.authService.loggedIn$.pipe(
-      tap((isLoggedIn: boolean) => {
-        if (!isLoggedIn) {
-          alert('Not authorized, please login.');
-        }
-        return isLoggedIn;
-      })
-    );
+  ): boolean {
+    // let result = false;
+
+    // this.authService.loggedIn$.subscribe((isLoggedIn) => {
+    //   result = isLoggedIn;
+    //   if (result == false) {
+    //     alert('Not authorized, please login.');
+    //   }
+    // });
+
+    // return result;
+
+    if (this.authService.checkAuthStatusBoolean()) {
+      return true;
+    }
+
+    // this.router.navigate(['/auth'], { queryParams: { returnUrl: state.url } });
+    this.router.navigate(['/auth']);
+    return false;
   }
 }
