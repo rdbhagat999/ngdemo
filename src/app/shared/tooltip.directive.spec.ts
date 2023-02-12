@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { TooltipDirective } from './tooltip.directive';
 @Component({
   selector: 'app-dummy',
-  template: `<h1 appTooltip="hello world">Hello world!</h1>`,
+  template: `<h1 appTooltip tooltip="hello world">Hello world!</h1>`,
   styles: [],
 })
 export class DummyComponent {}
@@ -49,4 +49,18 @@ describe('TooltipDirective', () => {
   it('should have one element with directive', () => {
     expect(debugEls.length).withContext('length').toBe(1);
   });
+
+  it('h1 should have tooltip on mouseenter event', fakeAsync(() => {
+    const h1El = debugEls[0].nativeElement as HTMLHeadingElement;
+
+    h1El.dispatchEvent(new Event('mouseenter'));
+
+    tick(300);
+
+    fixture.detectChanges();
+
+    const tooltipEl = fixture.debugElement.query(By.css('.tooltip-container'));
+
+    expect(tooltipEl?.nativeElement?.innerHTML).toContain('hello world');
+  }));
 });
