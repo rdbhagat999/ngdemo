@@ -30,7 +30,7 @@ describe('ProductService', () => {
     expect(service).toBeTruthy();
   });
 
-  it(`should return products observable with IDs [${mockProduct_1.id}, ${mockProduct_2.id}]`, (done) => {
+  it(`should return products observable`, (done) => {
     spyOn(service, 'getProducts').and.returnValue(mockProducts$);
 
     const products$ = service.getProducts();

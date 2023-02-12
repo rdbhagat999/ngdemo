@@ -16,18 +16,6 @@ const routes: Routes = [
     canDeactivate: [DeactivateGuard],
   },
   {
-    path: 'calender',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./calender/calender.module').then((m) => m.CalenderModule),
-  },
-  {
-    path: 'hooks',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./life-hooks/life-hooks.module').then((m) => m.LifeHooksModule),
-  },
-  {
     path: 'products',
     canActivate: [AuthGuard],
     loadChildren: () =>

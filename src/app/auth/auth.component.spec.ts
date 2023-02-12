@@ -6,7 +6,7 @@ import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 
 import { AuthComponent } from './auth.component';
 
-fdescribe('AuthComponent', () => {
+describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
   let http: HttpClient;
@@ -79,7 +79,7 @@ fdescribe('AuthComponent', () => {
     expect(form.valid).withContext('later invalid').toBeFalsy();
   });
 
-  it('should submit form', (done) => {
+  it('should submit form', () => {
     spyOn(component, 'handleSubmit');
 
     component.handleSubmit();
@@ -93,5 +93,13 @@ fdescribe('AuthComponent', () => {
 
     //   done();
     // });
+  });
+
+  it('should render title', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Sign in to your account'
+    );
   });
 });

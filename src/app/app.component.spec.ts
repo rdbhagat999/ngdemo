@@ -1,13 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { MockHttpClient } from './test_utils';
 
 describe('AppComponent', () => {
+  let http: HttpClient;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      declarations: [AppComponent, HeaderComponent, FooterComponent],
+      providers: [{ provide: HttpClient, useClass: MockHttpClient }],
     }).compileComponents();
+
+    http = TestBed.inject(HttpClient);
   });
 
   it('should create the app', () => {
@@ -20,14 +29,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('ngdemo');
-  });
-
-  xit('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'ngdemo app is running!'
-    );
   });
 });
