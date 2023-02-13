@@ -1,8 +1,6 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgxNotifierModule } from 'ngx-notifier';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthComponent } from './auth/auth.component';
@@ -28,11 +26,9 @@ import { GlobalErrorHandlerService } from './global-error-handler.service';
     AuthComponent,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    BrowserModule, // required animations module
     HttpClientModule,
     ReactiveFormsModule,
-    NgxNotifierModule,
     SharedModule,
     AppRoutingModule,
   ],

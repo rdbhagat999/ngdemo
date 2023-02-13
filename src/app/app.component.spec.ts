@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgxNotifierModule } from 'ngx-notifier';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,7 +11,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NgxNotifierModule],
+      imports: [RouterTestingModule],
       declarations: [AppComponent, HeaderComponent, FooterComponent],
       providers: [{ provide: HttpClient, useClass: MockHttpClient }],
     }).compileComponents();

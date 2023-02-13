@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandler, inject, Injectable } from '@angular/core';
-import { NgxNotifierService } from 'ngx-notifier';
+import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -8,13 +7,11 @@ import { NgxNotifierService } from 'ngx-notifier';
 export class GlobalErrorHandlerService implements ErrorHandler {
   // for client-side errors
 
-  private notifierService = inject(NgxNotifierService);
-
   constructor() {}
 
   showError(message: string) {
     console.log(`Error: ${message}`);
-    this.notifierService.createToast(`Error: ${message}`, 'danger');
+    alert(`Error: ${message}`);
   }
 
   handleError(err: any): void {
