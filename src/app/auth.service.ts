@@ -12,16 +12,10 @@ export class AuthService implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
 
-  private BASE_URL = 'https://dummyjson.com';
+  private readonly BASE_URL = 'https://dummyjson.com';
 
-  private accessToken = new BehaviorSubject<string>('');
   private user = new BehaviorSubject<IDummyJsonUser | null>(null);
-  private loggedIn = new BehaviorSubject<boolean>(false);
-
-  accessToken$ = this.accessToken.asObservable();
   user$ = this.user.asObservable();
-  loggedIn$ = this.loggedIn.asObservable();
-
   sub$!: Subscription;
 
   ngOnInit() {
@@ -38,15 +32,12 @@ export class AuthService implements OnInit {
   }
 
   updateDummyJsonAuthState(user: IDummyJsonUser | null): void {
-    localStorage.setItem('token', user?.token || '');
     localStorage.setItem('user', JSON.stringify(user));
-    this.updateAccessToken(user?.token || '');
     this.updateAuthUser(user);
-    this.updateAuthStatus(user);
   }
 
-  checkAuthStatusBoolean() {
-    return this.loggedIn.value;
+  get AuthUserStatus() {
+    return this.user.value;
   }
 
   loginToDummyJson(username: string, password: string) {
@@ -65,24 +56,13 @@ export class AuthService implements OnInit {
   }
 
   logoutFromDummyJson() {
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.updateAccessToken('');
     this.updateAuthUser(null);
-    this.updateAuthStatus(null);
     this.router.navigateByUrl('/home');
   }
 
   updateAuthUser(user: IDummyJsonUser | null): void {
     this.user.next(user);
-  }
-
-  updateAuthStatus(user: IDummyJsonUser | null): void {
-    this.loggedIn.next(!!user);
-  }
-
-  updateAccessToken(token: string): void {
-    this.accessToken.next(token);
   }
 
   ngOnDestroy(): void {

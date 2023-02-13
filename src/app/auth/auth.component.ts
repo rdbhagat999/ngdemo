@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,11 +13,15 @@ export class AuthComponent {
   isFormSubmitted = false;
   private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
+  private router: Router = inject(Router);
 
   constructor() {}
 
   ngOnInit(): void {
     this.initForm();
+    if (!!this.authService.AuthUserStatus) {
+      this.router.navigate(['/home']);
+    }
   }
 
   initForm() {

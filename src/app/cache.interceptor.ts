@@ -29,7 +29,7 @@ export class CacheInterceptor implements HttpInterceptor {
 
     const diffTime = currentTime - cachedURLTime;
 
-    if (diffTime > 1_20_000) {
+    if (diffTime > 20_000) {
       this.cache.delete(request.url);
       console.log('Request cache deleted.');
     }
@@ -48,10 +48,9 @@ export class CacheInterceptor implements HttpInterceptor {
           if (this.cache.size > 20) {
             this.cache.clear();
             console.log('Cleared all request cache.');
-          } else {
-            this.cache.set(request.url, response);
-            this.cacheTime.set(request.url, new Date().getTime());
           }
+          this.cache.set(request.url, response);
+          this.cacheTime.set(request.url, new Date().getTime());
         }
       })
     );

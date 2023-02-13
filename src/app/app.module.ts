@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxNotifierModule } from 'ngx-notifier';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthComponent } from './auth/auth.component';
@@ -14,6 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AuthGuard } from './auth.guard';
 import { DeactivateGuard } from './deactivate.guard';
 import { CacheInterceptor } from './cache.interceptor';
+import { HttpErrorInterceptor } from './http-error.interceptor';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -25,8 +29,10 @@ import { CacheInterceptor } from './cache.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxNotifierModule,
     SharedModule,
     AppRoutingModule,
   ],
@@ -35,6 +41,8 @@ import { CacheInterceptor } from './cache.interceptor';
     DeactivateGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
   ],
   exports: [],
   bootstrap: [AppComponent],

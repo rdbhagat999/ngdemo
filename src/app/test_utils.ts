@@ -49,9 +49,7 @@ export class MockHttpClient {}
 @Injectable()
 export class MockAuthService extends AuthService {
   override updateDummyJsonAuthState(user: IDummyJsonUser | null) {
-    this.updateAccessToken(user?.token || '');
     this.updateAuthUser(user);
-    this.updateAuthStatus(user);
   }
 
   override loginToDummyJson(username: string, password: string) {
@@ -59,9 +57,7 @@ export class MockAuthService extends AuthService {
   }
 
   override logoutFromDummyJson() {
-    this.updateAccessToken('');
     this.updateAuthUser(null);
-    this.updateAuthStatus(null);
   }
 }
 

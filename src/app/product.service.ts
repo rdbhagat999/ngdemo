@@ -11,7 +11,7 @@ export class ProductService {
 
   getProducts(): Observable<IProduct[]> {
     return this.http
-      .get(`https://dummyjson.com/products?limit=10`, {
+      .get(`https://dummyjson.com/auth/products?limit=10`, {
         // headers: {
         //   Authorization: `Bearer ${localStorage.getItem('token')}`,
         //   'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export class ProductService {
 
   getProduct(productId: number): Observable<IProduct> {
     return this.http.get<IProduct>(
-      `https://dummyjson.com/products/${productId}`,
+      `https://dummyjson.com/auth/products/${productId}`,
       {
         // headers: {
         //   Authorization: `Bearer ${localStorage.getItem('token')}`,

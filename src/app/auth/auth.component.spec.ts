@@ -7,6 +7,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 
@@ -16,6 +17,7 @@ describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
   let http: HttpClient;
+  let router: Router;
   let service: AuthService;
 
   beforeEach(async () => {
@@ -24,6 +26,7 @@ describe('AuthComponent', () => {
       declarations: [AuthComponent],
       providers: [
         FormBuilder,
+        Router,
         { provide: AuthService, useClass: MockAuthService },
         { provide: HttpClient, useClass: MockHttpClient },
       ],
@@ -33,6 +36,7 @@ describe('AuthComponent', () => {
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     http = TestBed.inject(HttpClient);
+    router = TestBed.inject(Router);
     service = TestBed.inject(AuthService);
   });
 
