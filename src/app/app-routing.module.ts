@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DeactivateGuard } from './guards/deactivate.guard';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     canDeactivate: [DeactivateGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canDeactivate: [],
   },
   {
     path: 'products',

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { IDummyJsonUser } from '../dummy-json-user.interface';
 
 @Injectable({
@@ -48,6 +48,13 @@ export class AuthService implements OnInit {
         headers: { 'Content-Type': 'application/json' },
       }
     );
+  }
+
+  checkUsername(username: string) {
+    if (username === 'kminchelle') {
+      return of(true);
+    }
+    return of(false);
   }
 
   logoutFromDummyJson() {

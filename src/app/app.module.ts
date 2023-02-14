@@ -18,6 +18,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { AdCardComponent } from './components/ad-card/ad-card.component';
 import { AddBannerComponent } from './components/add-banner/add-banner.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AddBannerComponent } from './components/add-banner/add-banner.component
     AuthComponent,
     AdCardComponent,
     AddBannerComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule, // required animations module
