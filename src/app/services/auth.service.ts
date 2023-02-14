@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, defer, map, Subscription } from 'rxjs';
-import { IDummyJsonUser } from './dummy-json-user.interface';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { IDummyJsonUser } from '../dummy-json-user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +41,7 @@ export class AuthService implements OnInit {
   }
 
   loginToDummyJson(username: string, password: string) {
-    return this.http.post(
+    return this.http.post<IDummyJsonUser>(
       `${this.BASE_URL}/auth/login`,
       { username, password },
       {

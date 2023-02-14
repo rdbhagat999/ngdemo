@@ -2,8 +2,8 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { IDummyJsonUser } from '../dummy-json-user.interface';
+import { AuthService } from '../../services/auth.service';
+import { IDummyJsonUser } from '../../dummy-json-user.interface';
 
 @Component({
   selector: 'app-auth',

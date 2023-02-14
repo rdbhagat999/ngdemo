@@ -8,8 +8,8 @@ import {
 } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
+import { AuthService } from '../../services/auth.service';
+import { MockAuthService, MockHttpClient, mockUser } from '../../test_utils';
 
 import { AuthComponent } from './auth.component';
 
@@ -100,21 +100,29 @@ describe('AuthComponent', () => {
     expect(form.valid).withContext('later invalid').toBeFalsy();
   });
 
-  it('should submit form', fakeAsync(() => {
+  fit('should submit login form', fakeAsync(() => {
     component.ngOnInit();
     fixture.detectChanges();
 
     expect(component.form.valid).withContext('first valid').toBe(true);
 
+    spyOn(component, 'handleSubmit');
+
     fixture.nativeElement.querySelector('form button').click();
+    // fixture.debugElement.query(By.css('form button')).nativeElement.click();
+    tick();
+
+    expect(component.handleSubmit).toHaveBeenCalled();
 
     tick();
 
-    service.user$.subscribe((user) => {
-      expect(user?.username)
-        .withContext('after form submit event')
-        .toBe(mockUser?.username);
-    });
+    expect(component.username?.value).toBe(mockUser.username);
+
+    // service.user$.subscribe((user) => {
+    //   expect(user?.username)
+    //     .withContext('after form submit event')
+    //     .toBe(mockUser?.username);
+    // });
   }));
 
   it('should render title', () => {

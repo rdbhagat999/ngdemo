@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
-import { AuthComponent } from './auth/auth.component';
-import { DeactivateGuard } from './deactivate.guard';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DeactivateGuard } from './guards/deactivate.guard';
 
 const routes: Routes = [
   {

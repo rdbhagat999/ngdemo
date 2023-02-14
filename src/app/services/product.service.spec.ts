@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ProductService } from './product.service';
-import { IProduct } from './products/product';
+import { IProduct } from '../products/product';
 import {
   MockHttpClient,
   mockProducts$,
   MockProductService,
   mockProduct_1,
   mockProduct_2,
-} from './test_utils';
+} from '../test_utils';
 
 describe('ProductService', () => {
   let service: MockProductService;

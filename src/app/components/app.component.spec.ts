@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { MockHttpClient } from './test_utils';
+import { MockHttpClient } from '../test_utils';
 
 describe('AppComponent', () => {
   let http: HttpClient;

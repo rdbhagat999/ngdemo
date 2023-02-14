@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 import { HttpErrorInterceptor } from './http-error.interceptor';
-import { MockHttpClient, MockAuthService } from './test_utils';
+import { MockHttpClient, MockAuthService } from '../test_utils';
 
 describe('HttpErrorInterceptor', () => {
   beforeEach(() =>

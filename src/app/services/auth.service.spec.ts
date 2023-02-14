@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 
-import { MockAuthService, MockHttpClient, mockUser } from './test_utils';
+import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
+import { IDummyJsonUser } from '../dummy-json-user.interface';
 
 describe('AuthService', () => {
-  let service: MockAuthService;
+  let service: AuthService;
   let http: HttpClient;
 
   beforeEach(() => {
@@ -25,9 +26,7 @@ describe('AuthService', () => {
   });
 
   it(`[loginToDummyJson] should set user with ID [${mockUser?.id}]`, (done) => {
-    service.loginToDummyJson(mockUser?.username, '123');
-
-    service.user$.subscribe((user) => {
+    service.loginToDummyJson(mockUser?.username, '123').subscribe((user) => {
       expect(user?.username).toBe(mockUser?.username);
 
       done();

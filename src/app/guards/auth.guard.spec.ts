@@ -3,8 +3,8 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
-import { MockAuthService, MockHttpClient, mockUser } from './test_utils';
+import { AuthService } from '../services/auth.service';
+import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;

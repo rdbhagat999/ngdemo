@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { IDummyJsonUser } from '../dummy-json-user.interface';
+import { AuthService } from '../../services/auth.service';
+import { IDummyJsonUser } from '../../dummy-json-user.interface';
 
 @Component({
   selector: 'app-header',

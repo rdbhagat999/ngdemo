@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { IDummyJsonUser } from './dummy-json-user.interface';
-import { ProductService } from './product.service';
+import { ProductService } from './services/product.service';
 import { IProduct } from './products/product';
 
 export const mockUser: IDummyJsonUser = {
@@ -13,7 +13,7 @@ export const mockUser: IDummyJsonUser = {
   image: 'mockuser_image',
   lastName: 'mockuser_lastname',
   token: 'mockuser_token',
-  username: 'mockuser_username',
+  username: 'kminchelle',
 };
 export const mockProduct_1 = {
   id: 1,
@@ -54,6 +54,7 @@ export class MockAuthService extends AuthService {
 
   override loginToDummyJson(username: string, password: string) {
     this.updateDummyJsonAuthState(mockUser as IDummyJsonUser);
+    return of(mockUser);
   }
 
   override logoutFromDummyJson() {

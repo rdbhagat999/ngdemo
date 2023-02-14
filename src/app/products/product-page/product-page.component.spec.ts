@@ -5,7 +5,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ProductService } from 'src/app/product.service';
+import { ProductService } from 'src/app/services/product.service';
 import { DefaultPipe } from 'src/app/shared/default.pipe';
 import { TooltipDirective } from 'src/app/shared/tooltip.directive';
 import {
