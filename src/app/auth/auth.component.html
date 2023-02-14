@@ -86,8 +86,11 @@
           </div>
 
           <button
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || isFormSubmitted"
             type="submit"
+            [ngClass]="{
+              'cursor-not-allowed': form.invalid || isFormSubmitted
+            }"
             class="submit w-full inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150"
           >
             <svg
