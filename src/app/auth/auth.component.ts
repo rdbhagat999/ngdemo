@@ -62,7 +62,11 @@ export class AuthComponent implements OnDestroy {
           this.authService.updateDummyJsonAuthState(data as IDummyJsonUser);
           this.router.navigateByUrl('/products');
         },
-
+        error: (err) => {
+          this.isFormSubmitted = false;
+          console.log(err);
+          alert(`Error: ${err?.error?.message}`);
+        },
         complete: () => {
           this.isFormSubmitted = false;
         },
