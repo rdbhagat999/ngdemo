@@ -16,6 +16,8 @@ import { DeactivateGuard } from './guards/deactivate.guard';
 import { CacheInterceptor } from './interceptors/cache.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
+import { AdCardComponent } from './components/ad-card/ad-card.component';
+import { AddBannerComponent } from './components/add-banner/add-banner.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { GlobalErrorHandlerService } from './services/global-error-handler.servi
     HeaderComponent,
     FooterComponent,
     AuthComponent,
+    AdCardComponent,
+    AddBannerComponent,
   ],
   imports: [
     BrowserModule, // required animations module
