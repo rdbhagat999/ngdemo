@@ -41,18 +41,13 @@ export class AuthService implements OnInit {
   }
 
   loginToDummyJson(username: string, password: string) {
-    this.sub$ = this.http
-      .post(
-        `${this.BASE_URL}/auth/login`,
-        { username, password },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-      .subscribe((data: any) => {
-        this.updateDummyJsonAuthState(data as IDummyJsonUser);
-        this.router.navigateByUrl('/products');
-      });
+    return this.http.post(
+      `${this.BASE_URL}/auth/login`,
+      { username, password },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   logoutFromDummyJson() {

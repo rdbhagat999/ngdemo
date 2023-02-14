@@ -1,16 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { IDummyJsonUser } from '../dummy-json-user.interface';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
   form!: FormGroup;
   isFormSubmitted = false;
+  sub$!: Subscription;
   private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
@@ -52,15 +55,29 @@ export class AuthComponent {
     // Form field values
     // console.log(this.form?.value);
 
-    this.authService.loginToDummyJson(
-      this.form.value?.username,
-      this.form.value?.password
-    );
+    this.sub$ = this.authService
+      .loginToDummyJson(this.form.value?.username, this.form.value?.password)
+      .subscribe({
+        next: (data: any) => {
+          this.authService.updateDummyJsonAuthState(data as IDummyJsonUser);
+          this.router.navigateByUrl('/products');
+        },
+
+        complete: () => {
+          this.isFormSubmitted = false;
+        },
+      });
   }
 
   canDeactivate() {
     const pristine = this.form.pristine;
     console.log('pristine', pristine);
     return pristine;
+  }
+
+  ngOnDestroy() {
+    if (this.sub$) {
+      this.sub$.unsubscribe();
+    }
   }
 }
