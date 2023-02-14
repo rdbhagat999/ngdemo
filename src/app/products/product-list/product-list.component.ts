@@ -16,11 +16,7 @@ import { ProductComponent } from '../product/product.component';
   styleUrls: ['./product-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent
-  implements
-    AfterViewInit,
-    AfterViewChecked
-{
+export class ProductListComponent implements AfterViewInit, AfterViewChecked {
   @Input() products: IProduct[] = [];
 
   @ViewChildren(ProductComponent)

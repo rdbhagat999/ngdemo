@@ -18,18 +18,13 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const authService = inject(AuthService);
 
-    let currentUser = authService.AuthUserStatus;
+    const currentUser = authService.getLocalStorageUser();
 
-    const user_string = localStorage.getItem('user');
-
-    const user = user_string ? JSON.parse(user_string) : '';
-    const token = user?.token;
-
-    if (token && request?.url.includes('dummyjson')) {
+    if (currentUser?.token && request?.url.includes('dummyjson')) {
       const cloneReq = request.clone({
         setHeaders: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${currentUser?.token}`,
         },
       });
 

@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { IDummyJsonUser } from '../../dummy-json-user.interface';
 
@@ -8,16 +8,25 @@ import { IDummyJsonUser } from '../../dummy-json-user.interface';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
 
-  user$!: Observable<IDummyJsonUser | null>;
+  user!: IDummyJsonUser | null;
+  sub$!: Subscription;
 
   ngOnInit() {
-    this.user$ = this.authService.user$;
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   signOut(): void {
     this.authService.logoutFromDummyJson();
+  }
+
+  ngOnDestroy() {
+    if (this.sub$) {
+      this.sub$.unsubscribe();
+    }
   }
 }

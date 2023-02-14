@@ -1,26 +1,28 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, inject, Injectable } from '@angular/core';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalErrorHandlerService implements ErrorHandler {
   // for client-side errors
+  private loggerService: LoggerService = inject(LoggerService);
 
   constructor() {}
 
   showError(message: string) {
-    console.log(`Error: ${message}`);
+    this.loggerService.log(`Error: ${message}`);
     alert(`Error: ${message}`);
   }
 
   handleError(err: any): void {
-    console.log('GlobalErrorHandlerService');
-    console.log(err);
+    this.loggerService.log('GlobalErrorHandlerService');
+    this.loggerService.logError(err);
     if (err instanceof HttpErrorResponse) {
-      console.log('HttpErrorResponse');
+      this.loggerService.log('HttpErrorResponse');
       if (!window.navigator.onLine) {
-        console.error('No internet connection');
+        this.loggerService.log('No internet connection');
         this.showError('No internet connection');
       } else if (err?.status === 0) {
         this.showError(err?.statusText);
@@ -28,7 +30,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
         this.showError(err?.error?.message);
       }
     } else {
-      console.log('Not httpErrorResponse');
+      this.loggerService.log('Not httpErrorResponse');
       this.showError(err?.message);
     }
   }

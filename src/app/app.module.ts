@@ -19,6 +19,7 @@ import { GlobalErrorHandlerService } from './services/global-error-handler.servi
 import { AdCardComponent } from './components/ad-card/ad-card.component';
 import { AddBannerComponent } from './components/add-banner/add-banner.component';
 import { RegisterComponent } from './components/register/register.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RegisterComponent } from './components/register/register.component';
     AppRoutingModule,
   ],
   providers: [
+    CookieService,
     AuthGuard,
     DeactivateGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

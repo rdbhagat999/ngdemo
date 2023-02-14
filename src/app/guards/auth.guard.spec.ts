@@ -34,16 +34,16 @@ describe('AuthGuard', () => {
   });
 
   it('should return false', fakeAsync(() => {
-    service.updateDummyJsonAuthState(null);
+    service.deleteLocalStorageUser();
     tick();
-    expect(guard.canActivate(routeMock, routeStateMock)).toEqual(false);
+    expect(guard.canActivate(routeMock, routeStateMock)).toBeFalsy();
     expect(routerMock.navigate).toHaveBeenCalledWith(['/auth']);
   }));
 
   it('should return true', fakeAsync(() => {
-    service.updateDummyJsonAuthState(mockUser);
+    service.onLoginUpdateDummyJsonUserState(mockUser);
     tick();
-    expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
+    expect(guard.canActivate(routeMock, routeStateMock)).toBeTruthy();
     // expect(routerMock.navigate).toHaveBeenCalledWith(['/products']);
   }));
 });

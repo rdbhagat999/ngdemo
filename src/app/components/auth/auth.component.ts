@@ -19,7 +19,8 @@ import { IDummyJsonUser } from '../../dummy-json-user.interface';
 export class AuthComponent implements OnDestroy {
   form!: FormGroup;
   isFormSubmitted = false;
-  sub$!: Subscription;
+  sub1$!: Subscription;
+  sub2$!: Subscription;
   private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
@@ -28,9 +29,12 @@ export class AuthComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    if (!!this.authService.AuthUserStatus) {
-      this.router.navigate(['/home']);
-    }
+
+    this.sub2$ = this.authService.user$.subscribe((user) => {
+      if (user?.id) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   initForm() {
@@ -61,11 +65,14 @@ export class AuthComponent implements OnDestroy {
     // Form field values
     // console.log(this.form?.value);
 
-    this.sub$ = this.authService
+    this.sub1$ = this.authService
       .loginToDummyJson(this.form.value?.username, this.form.value?.password)
       .subscribe({
         next: (data: any) => {
-          this.authService.updateDummyJsonAuthState(data as IDummyJsonUser);
+          this.authService.onLoginUpdateDummyJsonUserState(
+            data as IDummyJsonUser
+          );
+
           this.router.navigateByUrl('/products');
         },
         error: (err) => {
@@ -81,13 +88,15 @@ export class AuthComponent implements OnDestroy {
 
   canDeactivate() {
     const pristine = this.form.pristine;
-    console.log('pristine', pristine);
     return pristine;
   }
 
   ngOnDestroy() {
-    if (this.sub$) {
-      this.sub$.unsubscribe();
+    if (this.sub1$) {
+      this.sub1$.unsubscribe();
+    }
+    if (this.sub2$) {
+      this.sub2$.unsubscribe();
     }
   }
 }
