@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { IDummyJsonUser } from '../dummy-json-user.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { SessionStorageService } from './session-storage.service';
+
+const COOKIE_KEY = 'token';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +15,7 @@ export class AuthService implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
   private cookieService: CookieService = inject(CookieService);
+  private sessionService: SessionStorageService = inject(SessionStorageService);
 
   private readonly BASE_URL = 'https://dummyjson.com';
 
@@ -20,26 +24,24 @@ export class AuthService implements OnInit {
   sub$!: Subscription;
 
   ngOnInit() {
-    this.updateDummyJsonAuthStateFromLocalStorage();
+    this.updateDummyJsonAuthStateFromSessionStorage();
   }
 
-  getLocalStorageUser(): IDummyJsonUser | null {
-    const data = window.localStorage.getItem('user');
-    const user = data ? JSON.parse(data) : null;
+  getSessionStorageUser(): IDummyJsonUser | null {
+    const user = this.sessionService.getUser();
     this.updateAuthUser(user);
     return user;
   }
 
-  updateLocalStorageUser(user: any): void {
-    const data = JSON.stringify(user);
-    window.localStorage.setItem('user', data);
-    this.cookieService.set('user', data, 1, '/', '', false);
+  updateSessionStorageUser(user: any): void {
+    this.sessionService.saveUser(user);
+    this.cookieService.set(COOKIE_KEY, user?.token, 1, '/', '', true);
     this.updateAuthUser(user);
   }
 
-  deleteLocalStorageUser(): void {
-    window.localStorage.removeItem('user');
-    this.cookieService.delete('user');
+  deleteSessionStorageUser(): void {
+    this.sessionService.clean();
+    this.cookieService.delete(COOKIE_KEY);
     this.updateAuthUser(null);
   }
 
@@ -47,12 +49,12 @@ export class AuthService implements OnInit {
     this.user.next(user ? { ...user } : null);
   }
 
-  updateDummyJsonAuthStateFromLocalStorage(): void {
-    this.updateAuthUser(this.getLocalStorageUser());
+  updateDummyJsonAuthStateFromSessionStorage(): void {
+    this.updateAuthUser(this.sessionService.getUser());
   }
 
-  onLoginUpdateDummyJsonUserState(user: any) {
-    this.updateLocalStorageUser(user);
+  async onLoginUpdateDummyJsonUserState(user: any) {
+    this.updateSessionStorageUser(user);
   }
 
   loginToDummyJson(username: string, password: string) {
@@ -73,8 +75,17 @@ export class AuthService implements OnInit {
   }
 
   logoutFromDummyJson() {
-    this.deleteLocalStorageUser();
+    this.deleteSessionStorageUser();
     this.router.navigateByUrl('/home');
+  }
+
+  isTokenExpired(token: string) {
+    try {
+      const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+      return expiry * 1000 > Date.now();
+    } catch (error) {
+      return true;
+    }
   }
 
   ngOnDestroy(): void {

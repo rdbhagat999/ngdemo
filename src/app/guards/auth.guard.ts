@@ -18,7 +18,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.authService.getLocalStorageUser()?.username) {
+    if (
+      this.authService.isTokenExpired(
+        this.authService.getSessionStorageUser()?.token || ''
+      )
+    ) {
       return true;
     }
 

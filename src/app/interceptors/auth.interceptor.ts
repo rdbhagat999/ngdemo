@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const authService = inject(AuthService);
 
-    const currentUser = authService.getLocalStorageUser();
+    const currentUser = authService.getSessionStorageUser();
 
     if (currentUser?.token && request?.url.includes('dummyjson')) {
       const cloneReq = request.clone({

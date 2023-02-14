@@ -26,13 +26,15 @@ export class CacheInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
+    const MAX_CACHE_TIME = 1_20_000;
+
     const currentTime = new Date().getTime();
 
     const cachedURLTime = this.cacheTime.get(request.url) || currentTime;
 
     const diffTime = currentTime - cachedURLTime;
 
-    if (diffTime > 30_000) {
+    if (diffTime > MAX_CACHE_TIME) {
       this.cache.delete(request.url);
       this.loggerService.log('Request cache deleted.');
     }
@@ -47,13 +49,15 @@ export class CacheInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((response) => {
         if (response instanceof HttpResponse) {
-          this.loggerService.log('Stored request.');
-          if (this.cache.size > 20) {
-            this.cache.clear();
-            this.loggerService.log('Cleared all request cache.');
+          if (response?.ok) {
+            this.loggerService.log('Stored request.');
+            if (this.cache.size > 20) {
+              this.cache.clear();
+              this.loggerService.log('Cleared all request cache.');
+            }
+            this.cache.set(request.url, response);
+            this.cacheTime.set(request.url, new Date().getTime());
           }
-          this.cache.set(request.url, response);
-          this.cacheTime.set(request.url, new Date().getTime());
         }
       })
     );

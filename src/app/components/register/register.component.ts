@@ -32,7 +32,7 @@ export class RegisterComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    if (this.authService.getLocalStorageUser()) {
+    if (this.authService.getSessionStorageUser()) {
       this.router.navigate(['/home']);
     }
   }

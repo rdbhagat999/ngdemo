@@ -68,8 +68,8 @@ export class AuthComponent implements OnDestroy {
     this.sub1$ = this.authService
       .loginToDummyJson(this.form.value?.username, this.form.value?.password)
       .subscribe({
-        next: (data: any) => {
-          this.authService.onLoginUpdateDummyJsonUserState(
+        next: async (data: any) => {
+          await this.authService.onLoginUpdateDummyJsonUserState(
             data as IDummyJsonUser
           );
 
@@ -77,8 +77,7 @@ export class AuthComponent implements OnDestroy {
         },
         error: (err) => {
           this.isFormSubmitted = false;
-          console.log(err);
-          alert(`Error: ${err?.error?.message}`);
+          throw new Error(err?.error?.message);
         },
         complete: () => {
           this.isFormSubmitted = false;
