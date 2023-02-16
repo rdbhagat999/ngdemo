@@ -1,0 +1,9 @@
+<ul class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+  <li *ngFor="let post of posts; index as i; trackBy: trackById">
+    <a [routerLink]="['/posts', post?.id]">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+        {{ post?.title }}
+      </h5>
+    </a>
+  </li>
+</ul>

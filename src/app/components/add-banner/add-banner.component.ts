@@ -7,8 +7,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { AdItem } from 'src/app/classes/ad-item';
-import { AdHostDirective } from 'src/app/shared/ad-host.directive';
+import { AdItem } from 'src/app/_models/ad-item';
+import { AdHostDirective } from 'src/app/_shared/ad-host.directive';
 import { IAdComponent } from './ad.component';
 
 @Component({
@@ -46,7 +46,7 @@ export class AddBannerComponent implements OnInit, OnChanges, OnDestroy {
     viewContainerRef.clear();
 
     try {
-       // createComponent throws error if adList array is empty
+      // createComponent throws error if adList array is empty
       const cmpRef = viewContainerRef.createComponent<IAdComponent>(
         adItem.component
       );

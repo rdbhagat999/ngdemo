@@ -7,14 +7,13 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { IProduct } from '../product';
+import { IProduct } from '@app/products/product';
 import { ProductComponent } from '../product/product.component';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent implements AfterViewInit, AfterViewChecked {
   @Input() products: IProduct[] = [];

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DefaultPipe } from 'src/app/shared/default.pipe';
-import { TooltipDirective } from 'src/app/shared/tooltip.directive';
+import { DefaultPipe } from 'src/app/_shared/default.pipe';
+import { TooltipDirective } from 'src/app/_shared/tooltip.directive';
 import { mockProduct_1, mockProduct_2 } from 'src/app/test_utils';
 
 import { ProductComponent } from './product.component';

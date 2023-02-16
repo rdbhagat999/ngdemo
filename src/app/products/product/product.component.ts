@@ -6,7 +6,7 @@ import {
   ContentChild,
   Input,
 } from '@angular/core';
-import { IProduct } from '../product';
+import { IProduct } from '@app/products/product';
 import { ProductTitleComponent } from '../product-title/product-title.component';
 
 @Component({

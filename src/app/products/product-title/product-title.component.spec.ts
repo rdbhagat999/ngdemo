@@ -6,7 +6,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HighlightDirective } from 'src/app/shared/highlight.directive';
+import { HighlightDirective } from 'src/app/_shared/highlight.directive';
 
 import { ProductTitleComponent } from './product-title.component';
 

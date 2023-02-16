@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AdItem } from '../classes/ad-item';
-import { AdCardComponent } from '../components/ad-card/ad-card.component';
+import { AdItem } from '../_models/ad-item';
+import { AdCardComponent } from '@app/components/ad-card/ad-card.component';
 import { IProduct } from '../products/product';
 
 @Injectable({

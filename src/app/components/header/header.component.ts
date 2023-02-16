@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { IDummyJsonUser } from '../../dummy-json-user.interface';
+import { AuthService } from '@app/_services/auth.service';
+import { IDummyJsonUser } from '@app/_models/dummy-json-user.interface';
 
 @Component({
   selector: 'app-header',

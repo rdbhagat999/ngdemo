@@ -6,8 +6,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService } from 'src/app/services/product.service';
-import { IProduct } from '../product';
+import { ProductService } from '@app/_services';
+import { IProduct } from '@app/products/product';
 import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({

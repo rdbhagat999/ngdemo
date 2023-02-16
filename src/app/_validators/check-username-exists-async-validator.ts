@@ -5,7 +5,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { catchError, map, Observable, of, switchMap, timer } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@app/_services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class CheckUsernameExistsAsyncValidator implements AsyncValidator {

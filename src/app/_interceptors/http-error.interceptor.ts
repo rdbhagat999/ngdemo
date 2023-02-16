@@ -7,8 +7,8 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { LoggerService } from '../services/logger.service';
+import { AuthService } from '@app/_services/auth.service';
+import { LoggerService } from '@app/_services/logger.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -28,7 +28,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         this.loggerService.logError(err);
         if (err instanceof HttpErrorResponse) {
           this.loggerService.log('Serverside error');
-          if (err.status === 401 || err.status === 403) {
+          if ([401, 403].includes(err.status)) {
             // auto logout if 401 or 403 response returned from api
             this.authService.logoutFromDummyJson();
           }

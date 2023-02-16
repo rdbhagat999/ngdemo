@@ -5,7 +5,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_services/auth.service';
 import { MockAuthService } from 'src/app/test_utils';
 import { AddBannerComponent } from '../add-banner/add-banner.component';
 

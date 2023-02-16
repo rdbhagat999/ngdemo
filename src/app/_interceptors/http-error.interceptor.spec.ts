@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@app/_services/auth.service';
 
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { MockHttpClient, MockAuthService } from '../test_utils';

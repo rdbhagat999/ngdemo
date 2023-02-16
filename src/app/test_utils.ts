@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthService } from './services/auth.service';
-import { IDummyJsonUser } from './dummy-json-user.interface';
-import { ProductService } from './services/product.service';
+import { AuthService } from '@app/_services';
+import { IDummyJsonUser, ROLE } from './_models';
+import { ProductService } from '@app/_services';
 import { IProduct } from './products/product';
 
 export const mockUser: IDummyJsonUser = {
@@ -14,6 +14,7 @@ export const mockUser: IDummyJsonUser = {
   lastName: 'mockuser_lastname',
   token: 'mockuser_token',
   username: 'kminchelle',
+  role: ROLE.ADMIN,
 };
 export const mockProduct_1 = {
   id: 1,

@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
-import { AdItem } from 'src/app/classes/ad-item';
-import { AdService } from 'src/app/services/ad.service';
+import { AdItem } from 'src/app/_models/ad-item';
+import { AdService } from 'src/app/_services/ad.service';
 
 @Component({
   selector: 'app-home',

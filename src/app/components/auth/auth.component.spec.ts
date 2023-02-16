@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '@app/_services/auth.service';
 import { MockAuthService, MockHttpClient, mockUser } from '../../test_utils';
 
 import { AuthComponent } from './auth.component';

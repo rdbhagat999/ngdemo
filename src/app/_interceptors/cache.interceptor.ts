@@ -7,7 +7,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
-import { LoggerService } from '../services/logger.service';
+import { LoggerService } from '@app/_services/logger.service';
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
@@ -26,7 +26,7 @@ export class CacheInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    const MAX_CACHE_TIME = 1_20_000;
+    const MAX_CACHE_TIME = 9_20_000;
 
     const currentTime = new Date().getTime();
 

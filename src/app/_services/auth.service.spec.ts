@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 
 import { MockAuthService, MockHttpClient, mockUser } from '../test_utils';
-import { IDummyJsonUser } from '../dummy-json-user.interface';
+import { IDummyJsonUser } from '../_models/dummy-json-user.interface';
 
 describe('AuthService', () => {
   let service: AuthService;

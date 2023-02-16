@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AuthComponent } from './components/auth/auth.component';
-import { AuthGuard } from './guards/auth.guard';
-import { DeactivateGuard } from './guards/deactivate.guard';
-import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from '@app/components/home/home.component';
+import { AuthComponent } from '@app/components/auth/auth.component';
+import { RegisterComponent } from '@app/components/register/register.component';
+import { AuthGuard } from '@app/_guards/auth.guard';
+import { DeactivateGuard } from '@app/_guards/deactivate.guard';
 
 const routes: Routes = [
   {
@@ -26,6 +26,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./products/products.module').then((m) => m.ProductsModule),
+  },
+  {
+    path: 'posts',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./posts/posts.module').then((m) => m.PostsModule),
   },
   {
     path: 'image-cropper',

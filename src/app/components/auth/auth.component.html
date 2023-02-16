@@ -5,8 +5,37 @@
     <div
       class="cursor-pointer flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
     >
-      Login
+      Login as
     </div>
+    <form [formGroup]="loginRoleForm" class="text-white mb-4">
+      <label>
+        <input
+          type="radio"
+          formControlName="loginRole"
+          value="USER"
+          class="checked:bg-blue-500 ..."
+        />
+        USER
+      </label>
+      <label>
+        <input
+          type="radio"
+          formControlName="loginRole"
+          value="AUTHOR"
+          class="checked:bg-blue-500 ..."
+        />
+        AUTHOR
+      </label>
+      <label>
+        <input
+          type="radio"
+          formControlName="loginRole"
+          value="ADMIN"
+          class="checked:bg-blue-500 ..."
+        />
+        ADMIN
+      </label>
+    </form>
     <div
       class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
     >

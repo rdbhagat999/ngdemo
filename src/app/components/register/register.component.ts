@@ -7,9 +7,9 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { CheckUsernameExistsAsyncValidator } from 'src/app/validators/check-username-exists-async-validator';
-import { passwordMatchValidator } from 'src/app/validators/password-match-validator';
+import { AuthService } from 'src/app/_services/auth.service';
+import { CheckUsernameExistsAsyncValidator } from 'src/app/_validators/check-username-exists-async-validator';
+import { passwordMatchValidator } from 'src/app/_validators/password-match-validator';
 
 @Component({
   selector: 'app-register',

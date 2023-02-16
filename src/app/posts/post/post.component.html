@@ -1,0 +1,29 @@
+<ng-container *ngIf="user">
+  <ng-container *ngIf="roles.includes(user['role'])">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+      {{ (post$ | async)?.title }}
+
+      <small>
+        <ng-container
+          *ngIf="
+            rolesOriginal[user['role']].includes(permission.UPDATE_POST) &&
+            (post$ | async)?.userId === user.id
+          "
+        >
+          <span>Edit</span>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            rolesOriginal[user['role']].includes(permission.DELETE_POST) &&
+            (post$ | async)?.userId === user.id
+          "
+        >
+          <span>Delete</span>
+        </ng-container>
+      </small>
+    </h5>
+    <p class="mb-2 text-base font-bold tracking-tight text-gray-800">
+      {{ (post$ | async)?.body }}
+    </p>
+  </ng-container>
+</ng-container>

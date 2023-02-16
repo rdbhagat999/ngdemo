@@ -5,9 +5,9 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ProductService } from 'src/app/services/product.service';
-import { DefaultPipe } from 'src/app/shared/default.pipe';
-import { TooltipDirective } from 'src/app/shared/tooltip.directive';
+import { ProductService } from '@app/_services';
+import { DefaultPipe } from 'src/app/_shared/default.pipe';
+import { TooltipDirective } from 'src/app/_shared/tooltip.directive';
 import {
   MockHttpClient,
   mockProducts$,
@@ -15,7 +15,7 @@ import {
   mockProduct_1,
   mockProduct_2,
 } from 'src/app/test_utils';
-import { IProduct } from '../product';
+import { IProduct } from '@app/products/product';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { ProductTitleComponent } from '../product-title/product-title.component';
 import { ProductComponent } from '../product/product.component';

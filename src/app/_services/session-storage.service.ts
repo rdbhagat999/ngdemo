@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDummyJsonUser } from '../dummy-json-user.interface';
+import { IDummyJsonUser } from '../_models/dummy-json-user.interface';
 
 const USER_KEY = 'user';
 

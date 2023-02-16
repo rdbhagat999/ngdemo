@@ -2,7 +2,7 @@ import { inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Subscription } from 'rxjs';
-import { IDummyJsonUser } from '../dummy-json-user.interface';
+import { IDummyJsonUser } from '../_models/dummy-json-user.interface';
 import { CookieService } from 'ngx-cookie-service';
 import { SessionStorageService } from './session-storage.service';
 

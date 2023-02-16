@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@app/_services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
         this.authService.getSessionStorageUser()?.token || ''
       )
     ) {
+      console.log(this.authService.getSessionStorageUser()?.role);
       return true;
     }
 

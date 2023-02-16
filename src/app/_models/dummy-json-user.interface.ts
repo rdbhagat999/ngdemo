@@ -1,3 +1,5 @@
+import { ROLE } from './role';
+
 export interface IDummyJsonUser {
   email: string;
   firstName: string;
@@ -7,4 +9,5 @@ export interface IDummyJsonUser {
   lastName: string;
   token: string;
   username: string;
+  role: ROLE;
 }

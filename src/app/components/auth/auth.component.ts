@@ -4,11 +4,17 @@ import {
   inject,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { IDummyJsonUser } from '../../dummy-json-user.interface';
+import { AuthService } from '@app/_services/auth.service';
+import { IDummyJsonUser } from '@app/_models/dummy-json-user.interface';
+import { ROLE } from '@app/_models';
 
 @Component({
   selector: 'app-auth',
@@ -18,14 +24,45 @@ import { IDummyJsonUser } from '../../dummy-json-user.interface';
 })
 export class AuthComponent implements OnDestroy {
   form!: FormGroup;
+  loginRoleForm!: FormGroup;
   isFormSubmitted = false;
   sub1$!: Subscription;
   sub2$!: Subscription;
+  sub3$!: Subscription;
   private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
 
   constructor() {}
+
+  initLoginRoleForm() {
+    this.loginRoleForm = this.fb.group({
+      loginRole: new FormControl('USER'),
+    });
+
+    this.sub3$ = this.loginRoleForm.valueChanges.subscribe(({ loginRole }) => {
+      switch (loginRole) {
+        case ROLE.ADMIN:
+          this.form.patchValue({
+            username: 'kminchelle',
+            password: '0lelplR',
+          });
+          break;
+        case ROLE.AUTHOR:
+          this.form.patchValue({
+            username: 'hbingley1',
+            password: 'CQutx25i8r',
+          });
+          break;
+        default:
+          this.form.patchValue({
+            username: 'atuny0',
+            password: '9uQFF1Lh',
+          });
+          break;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -39,9 +76,11 @@ export class AuthComponent implements OnDestroy {
 
   initForm() {
     this.form = this.fb.group({
-      username: ['kminchelle', [Validators.required]],
-      password: ['0lelplR', [Validators.required]],
+      username: ['atuny0', [Validators.required]],
+      password: ['9uQFF1Lh', [Validators.required]],
     });
+
+    this.initLoginRoleForm();
   }
 
   get username() {
@@ -73,7 +112,7 @@ export class AuthComponent implements OnDestroy {
             data as IDummyJsonUser
           );
 
-          this.router.navigateByUrl('/products');
+          this.router.navigateByUrl('/image-cropper');
         },
         error: (err) => {
           this.isFormSubmitted = false;
@@ -96,6 +135,9 @@ export class AuthComponent implements OnDestroy {
     }
     if (this.sub2$) {
       this.sub2$.unsubscribe();
+    }
+    if (this.sub3$) {
+      this.sub3$.unsubscribe();
     }
   }
 }
